@@ -4,7 +4,7 @@
 - `实际运行`:参考[spring容器加载完毕做一件事情（利用ContextRefreshedEvent事件）](http://zhaoshijie.iteye.com/blog/1974682)
  - 注意和spring mvc项目的容器区分开
  - 
-- `概念解释`
+- `概念解释`:
  - [spring Standard and Custom Events](http://stackoverflow.com/questions/5728376/spring-applicationlistener-is-not-receiving-events)
 - `应用实例`:
  - [addressbook-sample-mongodb](https://github.com/yholkamp/addressbook-sample-mongodb/blob/5dc3668aed5512d56b2c6fd1e2bd53dc92192d81/web-ui/src/main/java/nl/enovation/addressbook/cqrs/webui/init/RunDBInitializerWhenNeeded.java)

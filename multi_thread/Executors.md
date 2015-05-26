@@ -1,5 +1,13 @@
 - 数据同步service
 
+- `功能描述`:
+- `适用范围`:先进先出的线程
+- `实际运行`:可放置在spring容器加载完毕后做
+- `概念解释`:
+ - LinkedBlockingQueue阻塞队列
+ - ExecutorService executor = Executors.newFixedThreadPool(MAX_THREAD_NUM);
+- `应用实例`:
+
 ```
 import java.util.HashSet;
 import java.util.Set;
