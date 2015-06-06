@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:property-placeholder location="classpath:config.properties" />
+
+	<!-- runnable task bean -->
+	<bean id="loadConfigTimerTask" class="service.server.LoadConfig" />
+	<bean id="transactionTask" class="service.server.TransactionTask" />
+	<bean id="timeZeroTask" class="service.server.TimeZeroTask" />
+	<bean id="pushTaskService" class="service.server.PushTaskService" />
+	<bean id="kuaFuTimerService" class="service.server.KuaFuTimerService" />
+	<bean id="unionTimerService" class="service.server.UnionTimerService" />
+	<bean id="autoRewardTask" class="service.server.AutoRewardTask" />
+	<!-- 
+	<bean id="timeUnionStart" class="service.server.TimerUnionStart" />
+	<bean id="timeUnionEnd" class="service.server.TimerUnionEnd" /> -->
+	<bean id="timeUnionWar" class="service.server.TimerUnionWar" />
+	<bean id="timeUnionSync" class="service.server.TimerSyncUnion" />
+
+	<!-- schedule bean -->
+	<!-- <bean id="scheduledTask" class="org.springframework.scheduling.timer.ScheduledTimerTask"
+		p:delay="1000" p:period="0" p:timerTask-ref="loadConfigTimerTask" /> -->
+	<bean id="transactionScheduled" class="org.springframework.scheduling.timer.ScheduledTimerTask"
+		p:delay="30000" p:period="0" p:timerTask-ref="transactionTask" />
+	<bean id="pushTask" class="org.springframework.scheduling.timer.ScheduledTimerTask"
+		p:delay="30000" p:period="60000" p:timerTask-ref="pushTaskService" />
+	<bean id="kuaFu" class="org.springframework.scheduling.timer.ScheduledTimerTask"
+		p:delay="15000" p:period="0" p:timerTask-ref="kuaFuTimerService" />
+	<bean id="union" class="org.springframework.scheduling.timer.ScheduledTimerTask"
+		p:delay="15000" p:period="0" p:timerTask-ref="unionTimerService" />
+		
+	<bean id="timeZeroTaskTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="timeZeroJob" />
+		<property name="cronExpression" value="0 1 00 * * ?" />
+	</bean>
+	
+	<!-- 
+	<bean id="timeUnionStartTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="timeUnionStartJob" />
+		<property name="cronExpression" value="0 0/2 * * * ?" />
+	</bean>
+	
+	<bean id="timeUnionEndTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="timeUnionEndJob" />
+		<property name="cronExpression" value="0 0/2 * * * ?" />
+	</bean> -->
+	
+	<bean id="timeUnionWarTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="timeUnionWarJob" />
+		<property name="cronExpression" value="0 0/2 19,21 * * ?" />
+	</bean>
+	<bean id="timeUnionSyncTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="timeUnionSyncJob" />
+		<property name="cronExpression" value="0 0/3 * * * ?" />
+	</bean>
+	
+	<bean id="timeZeroJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="timeZeroTask" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+		<!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+	</bean>
+	
+	<!-- 
+	<bean id="timeUnionStartJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="timeUnionStart" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="timeUnionEndJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="timeUnionEnd" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean> -->
+	
+	<bean id="timeUnionWarJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="timeUnionWar" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="timeUnionSyncJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="timeUnionSync" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	
+	<!-- 每天4点钟触发一次自动发奖。!-->
+	<bean id="autoRewardTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="autoReward" />
+		<property name="cronExpression" value="0 1 4 * * ?" /><!-- 定时触发一次 -->
+	</bean>
+	<bean id="autoReward"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="autoRewardTask" />
+		<property name="targetMethod" value="execute" />
+		<property name="concurrent" value="false" />
+		<!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+	</bean>
+
+
+	<!-- timer bean -->
+	<!-- <bean id="timerCfg" class="org.springframework.scheduling.timer.TimerFactoryBean">
+		<property name="scheduledTimerTasks">
+			<list>
+				<ref bean="scheduledTask" />
+			</list>
+		</property>
+	</bean> -->
+	<bean id="timerTransaction" class="org.springframework.scheduling.timer.TimerFactoryBean">
+		<property name="scheduledTimerTasks">
+			<list>
+				<ref bean="transactionScheduled" />
+			</list>
+		</property>
+	</bean>
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="timeZeroTaskTrigger" />
+				<ref bean="autoRewardTrigger" />
+				<ref bean="timeUnionSyncTrigger" />
+				<ref bean="timeUnionWarTrigger"/>
+			</list>
+		</property>
+		<property name="autoStartup" value="true" />
+	</bean>
+	<bean id="timerPush" class="org.springframework.scheduling.timer.TimerFactoryBean">
+		<property name="scheduledTimerTasks">
+			<list>
+				<ref bean="pushTask" />
+			</list>
+		</property>
+	</bean>    
+	<!--  
+	<bean id="timerKuaFu" class="org.springframework.scheduling.timer.TimerFactoryBean">
+		<property name="scheduledTimerTasks">
+			<list>
+				<ref bean="kuaFu" />
+			</list>
+		</property>
+	</bean>
+	-->
+	<!--
+	<bean id="timerUnion" class="org.springframework.scheduling.timer.TimerFactoryBean">
+		<property name="scheduledTimerTasks">
+			<list>
+				<ref bean="union" />
+			</list>
+		</property>
+	</bean>
+	-->
+</beans>
