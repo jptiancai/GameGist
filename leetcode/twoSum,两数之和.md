@@ -119,7 +119,7 @@ public class UrlTest {
 
 	/**
 	 * 时间复杂度O(m + n) 九章算法： http://www.jiuzhang.com/solutions/add-two-numbers/
-	 * 
+	 * 九章在线练习 : http://www.lintcode.com/zh-cn/problem/add-two-numbers/
 	 * @param l1
 	 * @param l2
 	 * @return
@@ -165,3 +165,58 @@ public class UrlTest {
 
 ```
 
+# Longest Substring Without Repeating Characters, 求最大无重复字符子串
+
+```java
+
+package com.imop.lj.test.battle;
+
+import java.util.Arrays;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws Exception{
+		UrlTest urlTest = new UrlTest();
+		System.out.println("最大无重复字符子串长度是: "+urlTest.lengthOfLongestSubstring("abcabcbb"));
+	}
+	
+	/**
+	 * 最大无重复字符子串
+	 * <br>
+	 * a 的ASCII 码是97
+	 * <br>
+	 * 九章算法 :http://www.jiuzhang.com/solutions/longest-substring-without-repeating-characters/
+	 * <br>
+	 * Code Ganker　：http://blog.csdn.net/linhuanmars/article/details/19949159
+	 * <br>
+	 * 算法精粹
+	 * <br>
+	 * abcabcbb -> abc -> 3
+	 * <br>
+	 * abbc -> 2 
+	 * <br>
+	 * bbbbb -> b -> 1
+	 * <br>
+	 * @param s
+	 * @return
+	 */
+	 public int lengthOfLongestSubstring(String s) {
+		 final int ASCII_MAX = 255;
+	        int[] last = new int[ASCII_MAX]; // 记录字符上次出现过的位置
+	        int start = 0; // 记录当前子串的起始位置
+
+	        Arrays.fill(last, -1); // 0也是有效位置，因此初始化为-1
+	        int max_len = 0;
+	        for (int i = 0; i < s.length(); i++) {
+	            if (last[s.charAt(i)] >= start) {
+	                max_len = Math.max(i - start, max_len);
+	                start = last[s.charAt(i)] + 1;
+	            }
+	            last[s.charAt(i)] = i;
+	        }
+	        
+	        System.out.println("最大无重复字符子串:" +s.substring(0,Math.max((int)s.length() - start, max_len)));
+	        return Math.max((int)s.length() - start, max_len);  // 别忘了最后一次，例如"abcd"
+	 }
+}
+```
