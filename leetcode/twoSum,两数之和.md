@@ -294,3 +294,86 @@ public class UrlTest {
 		}
 }
 ```
+# Longest Palindromic Substring, 最长回文子串
+
+```java
+
+package com.imop.lj.test.battle;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws Exception{
+	
+		
+		UrlTest urlTest = new UrlTest();
+		System.out.println(urlTest.longestPalindrome("abcdzdcab"));
+	}
+	
+	
+	/**
+	 * 海上在上海
+	 * 样例,给出字符串 "abcdzdcab"，它的最长回文子串为 "cdzdc"。
+	 * <br>
+	 * 其实题目做到现在,就是为了理解其中好的算法,比如解决这道题的算法有很多种,值得学习
+	 * 最长回文子串——Manacher 算法 : https://segmentfault.com/a/1190000003914228
+	 * <br>
+	 * 算法精粹 : https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/longest-palindromic-substring.html
+	 * <br>
+	 * 
+	 * @param s
+	 * @return
+	 */
+	// Transform S into T.
+    // For example, S = "abba", T = "^#a#b#b#a#$".
+    // ^ and $ signs are sentinels appended to each end to avoid bounds checking
+    public String preProcess(final String s) {
+        int n = s.length();
+        if (n == 0) return "^$";
+
+        StringBuilder ret = new StringBuilder("^");
+        for (int i = 0; i < n; i++) ret.append("#" + s.charAt(i));
+
+        ret.append("#$");
+        return ret.toString();
+    }
+
+    String longestPalindrome(String s) {
+        String T = preProcess(s);
+        final int n = T.length();
+        // 以T[i]为中心，向左/右扩张的长度，不包含T[i]自己，
+        // 因此 P[i]是源字符串中回文串的长度
+        int[] P = new int[n];
+        int C = 0, R = 0;
+
+        for (int i = 1; i < n - 1; i++) {
+            int iMirror = 2 * C - i; // equals to i' = C - (i-C)
+
+            P[i] = (R > i) ? Math.min(R - i, P[iMirror]) : 0;
+
+            // Attempt to expand palindrome centered at i
+            while (T.charAt(i + 1 + P[i]) == T.charAt(i - 1 - P[i]))
+                P[i]++;
+
+            // If palindrome centered at i expand past R,
+            // adjust center based on expanded palindrome.
+            if (i + P[i] > R) {
+                C = i;
+                R = i + P[i];
+            }
+        }
+
+        // Find the maximum element in P.
+        int maxLen = 0;
+        int centerIndex = 0;
+        for (int i = 1; i < n - 1; i++) {
+            if (P[i] > maxLen) {
+                maxLen = P[i];
+                centerIndex = i;
+            }
+        }
+
+        final int start =(centerIndex - 1 - maxLen) / 2;
+        return s.substring(start, start + maxLen);
+    }
+}
+```
