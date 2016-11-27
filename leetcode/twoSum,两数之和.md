@@ -378,3 +378,96 @@ public class UrlTest {
 }
 ```
 # ZigZag Conversion, 之字回型串，待添加
+
+```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		System.out.println(urlTest.convert("PAYPALISHIRING", 3));
+
+	}
+
+	 /**
+	  * PAYPALISHIRING
+	  * <pre>
+	  *P   A   H   N
+	  *A P L S I I G
+	  *Y   I   R		
+	  *</pre>
+	  *算法精粹： https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/zigzag-conversion.html
+	  * @param s
+	  * @param nRows
+	  * @return
+	  */
+	 public String convert(String s, int numRows) {
+	        if (numRows <= 1 || s.length() <= 1) return s;
+	        StringBuilder result = new StringBuilder();
+	        for (int i = 0; i < numRows; i++) {
+	            for (int j = 0, index = i; index < s.length();
+	                 j++, index = (2 * numRows - 2) * j + i) {
+	                result.append(s.charAt(index));  // 垂直元素
+	                if (i == 0 || i == numRows - 1) continue;   // 斜对角元素
+	                if (index + (numRows - i - 1) * 2 < s.length())
+	                    result.append(s.charAt(index + (numRows - i - 1) * 2));
+	            }
+	        }
+	        return result.toString();
+	    }
+
+}
+
+```
+
+
+
+# Reverse Integer， 反转整数
+
+```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		System.out.println(urlTest.reverse(Integer.MAX_VALUE));
+	}
+
+	/**
+	 * 两个特殊情况：负数和溢出的情况
+	 * 算法精粹： https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/reverse-integer.html
+	 * @param x
+	 * @return
+	 */
+	public int reverse(int x) {
+		//存储反转后的数
+        long r = 0;
+        long t = x;
+        t = t > 0 ? t : -t;
+        for (; t > 0; t /= 10)
+            r = r * 10 + t % 10;
+
+        //最后统一判断下
+        boolean sign = x > 0 ? false: true;
+        if (r > 2147483647 || (sign && r > Integer.MAX_VALUE)) {
+            return 0;
+        } else {
+            if (sign) {
+                return (int)-r;
+            } else {
+                return (int)r;
+            }
+        }
+    }
+}
+
+```
+
