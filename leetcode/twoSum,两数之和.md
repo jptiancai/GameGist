@@ -532,3 +532,41 @@ public class UrlTest {
 	    }
 }
 ```
+# Palindrome Number, 整数是否是回文
+
+```java
+
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		System.out.println(urlTest.isPalindrome(123321));
+	}
+
+	/**
+	 * 收尾分别比较，比起反转要好很多
+	 * 编程精粹： https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/palindrome-number.html
+	 * @param x
+	 * @return
+	 */
+	public boolean isPalindrome(int x) {
+        if (x < 0) return false;
+        int d = 1; // 除数
+        while (x / d >= 10) d *= 10;
+
+        while (x > 0) {
+            int q = x / d;  // 商,即首位
+            int r = x % 10;   // 余数，即末位
+            if (q != r) return false;
+            x = x % d / 10; //准备下一次
+            d /= 100;
+        }
+        return true;
+    }
+}
+```
