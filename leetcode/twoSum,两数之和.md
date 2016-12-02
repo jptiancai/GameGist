@@ -661,4 +661,91 @@ public class UrlTest {
 
 ```
 
-# Container With Most Water, 装最多水的容器，代做
+# Container With Most Water, 装最多水的容器
+
+```java
+package com.imop.lj.test.battle;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws Exception{
+		UrlTest urlTest = new UrlTest();
+		int height[] = {1, 3, 2};
+		System.out.println(urlTest.maxArea(height));
+	}
+	
+	/**
+	 * 题解不是很明白:http://www.lintcode.com/zh-cn/problem/container-with-most-water/
+	 * 算法精粹：　https://soulmachine.gitbooks.io/algorithm-essentials/content/java/greedy/container-with-most-water.html
+	 * @param height
+	 * @return
+	 */
+	public int maxArea(int[] height) {
+		int start = 0;
+		int end = height.length - 1;
+		int result = Integer.MIN_VALUE;
+		while (start < end) {
+			int area = Math.min(height[end], height[start]) * (end - start);
+			result = Math.max(result, area);
+			if (height[start] <= height[end]) {
+				start++;
+			} else {
+				end--;
+			}
+		}
+		return result;
+	}
+}
+
+```
+
+# Integer to Roman, 整数转罗马数字
+
+```java
+package com.imop.lj.test.battle;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws Exception{
+		UrlTest urlTest = new UrlTest();
+		System.out.println(urlTest.intToRoman(4));
+		System.out.println(urlTest.intToRoman(10));
+	}
+	
+
+	/**
+	 *找到数字转换罗马数字的规律即可,然后对应的找即可
+	 *
+	 *4 -> IV
+	 *<br>
+	 *12 -> XII
+	 *<br>
+	 *21 -> XXI
+	 *<br>
+	 *99 -> XCIX
+	 *<br>
+	 * @param num
+	 * @return
+	 */
+	public String intToRoman(int num) {
+		if(num <= 0) {
+			return "";
+		}
+	    int[] nums = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+	    String[] symbols = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+	    StringBuilder res = new StringBuilder();
+	    int digit=0;
+	    while (num > 0) {
+	        int times = num / nums[digit];
+	        num -= nums[digit] * times;
+	        for ( ; times > 0; times--) {
+	            res.append(symbols[digit]);
+	        }
+	        digit++;
+	    }
+	    return res.toString();
+	}
+	
+}
+
+```
