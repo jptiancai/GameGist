@@ -750,4 +750,110 @@ public class UrlTest {
 
 ```
 
-# Roman to Integer, 罗马转成数字，代做
+# Roman to Integer, 罗马转成数字
+
+```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		System.out.println(urlTest.romanToInt("II"));
+		
+	}
+
+	/**
+	 * 九章算法 ： http://www.jiuzhang.com/solutions/roman-to-integer/
+	 * @param s
+	 * @return
+	 */
+	public int romanToInt(String s) {
+	    if (s == null || s.length()==0) {
+                return 0;
+	    }
+	    Map<Character, Integer> m = new HashMap<Character, Integer>();
+	    m.put('I', 1);
+	    m.put('V', 5);
+	    m.put('X', 10);
+	    m.put('L', 50);
+	    m.put('C', 100);
+	    m.put('D', 500);
+	    m.put('M', 1000);
+
+	    int length = s.length();
+	    int result = m.get(s.charAt(length - 1));
+	    for (int i = length - 2; i >= 0; i--) {
+	        if (m.get(s.charAt(i + 1)) <= m.get(s.charAt(i))) {
+	            result += m.get(s.charAt(i));
+	        } else {
+	            result -= m.get(s.charAt(i));
+	        }
+	    }
+	    return result;
+	}
+}
+
+```
+
+# Longest Common Prefix, 最长公共前缀
+
+```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		String[] strs={"ABCD", "ABEF"};
+		System.out.println(urlTest.longestCommonPrefix(strs));
+
+	}
+
+	/**
+	 * 可以分为两个方法： 纵向扫描（指针纵向比较）和横向扫描（每个字符串和第一个字符串比较）
+	 * 
+	 * 算法精粹： https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/longest-common-prefix.html
+	 * 在 "ABCD" "ABEF" 和 "ACEF" 中,  LCP 为 "A"
+	 * <br>
+	 * 在 "ABCDEFG", "ABCEFG", "ABCEFA" 中, LCP 为 "ABC"
+	 * <br>
+	 * @param strs
+	 * @return
+	 */
+	public String longestCommonPrefix(String[] strs) {
+
+		if (strs.length == 0)
+			return "";
+
+		for (int j = 0; j < strs[0].length(); ++j) { // 纵向扫描
+
+			for (int i = 1; i < strs.length; ++i) {
+
+				if (j == strs[i].length() ||
+
+				strs[i].charAt(j) != strs[0].charAt(j))
+
+					return strs[0].substring(0, j);
+
+			}
+
+		}
+
+		return strs[0];
+
+	}
+}
+
+```
+
