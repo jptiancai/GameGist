@@ -929,3 +929,57 @@ public class UrlTest {
 
 ```
 
+# 3Sum Closest, 最接近的三数之和
+
+```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+import java.util.Arrays;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		int[] num ={-1, 2, 1, -4};
+		System.out.println(urlTest.threeSumClosest(num, 1));
+
+	}
+
+	/**
+	 * 九章算法： http://www.jiuzhang.com/solutions/3sum-closest/
+	 * <br>
+	 * 还是排序
+	 * @param numbers
+	 * @param target
+	 * @return
+	 */
+	public int threeSumClosest(int[] numbers, int target) {
+        if (numbers == null || numbers.length < 3) {
+            return -1;
+        }
+        
+        Arrays.sort(numbers);
+        int bestSum = numbers[0] + numbers[1] + numbers[2];
+        for (int i = 0; i < numbers.length; i++) {
+            int start = i + 1, end = numbers.length - 1;
+            while (start < end) {
+                int sum = numbers[i] + numbers[start] + numbers[end];
+                if (Math.abs(target - sum) < Math.abs(target - bestSum)) {
+                    bestSum = sum;
+                }
+                if (sum < target) {
+                    start++;
+                } else {
+                    end--;
+                }
+            }
+        }
+        
+        return bestSum;
+    }
+}
+
+```
+
