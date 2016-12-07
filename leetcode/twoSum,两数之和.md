@@ -983,3 +983,122 @@ public class UrlTest {
 
 ```
 
+# Letter Combinations of a Phone Number， 电话号码的字母组合
+
+```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		String digits = "23";
+		// 递归
+		System.out.println(urlTest.letterCombinations(digits));
+		// 迭代
+		System.out.println(urlTest.letterCombinations2(digits));
+
+	}
+
+	/**
+	 * 九章算法 ：
+	 * http://www.jiuzhang.com/solutions/letter-combinations-of-a-phone-number/
+	 * 
+	 * 手机上数字下对应的字母的组合有多少种
+	 * 
+	 * @param digits
+	 * @return
+	 */
+	public ArrayList<String> letterCombinations(String digits) {
+		ArrayList<String> result = new ArrayList<String>();
+
+		if (digits == null || digits.equals("")) {
+			return result;
+		}
+
+		Map<Character, char[]> map = new HashMap<Character, char[]>();
+		map.put('0', new char[] {});
+		map.put('1', new char[] {});
+		map.put('2', new char[] { 'a', 'b', 'c' });
+		map.put('3', new char[] { 'd', 'e', 'f' });
+		map.put('4', new char[] { 'g', 'h', 'i' });
+		map.put('5', new char[] { 'j', 'k', 'l' });
+		map.put('6', new char[] { 'm', 'n', 'o' });
+		map.put('7', new char[] { 'p', 'q', 'r', 's' });
+		map.put('8', new char[] { 't', 'u', 'v' });
+		map.put('9', new char[] { 'w', 'x', 'y', 'z' });
+
+		StringBuilder sb = new StringBuilder();
+		helper(map, digits, sb, result);
+
+		return result;
+	}
+
+	private void helper(Map<Character, char[]> map, String digits, StringBuilder sb, ArrayList<String> result) {
+		if (sb.length() == digits.length()) {
+			result.add(sb.toString());
+			return;
+		}
+
+		for (char c : map.get(digits.charAt(sb.length()))) {
+			sb.append(c);
+			helper(map, digits, sb, result);
+			sb.deleteCharAt(sb.length() - 1);
+		}
+	}
+
+	private static final String[] keyboard =
+
+	new String[] { " ", "", "abc", "def",
+
+			"ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+
+	public List<String> letterCombinations2(String digits) {
+
+		if (digits.isEmpty())
+			return new ArrayList<>();
+
+		List<String> result = new ArrayList<>();
+
+		result.add("");
+
+		for (char d : digits.toCharArray()) {
+
+			final int n = result.size();
+
+			final int m = keyboard[d - '0'].length();
+
+			// resize to n * m
+
+			for (int i = 1; i < m; ++i) {
+
+				for (int j = 0; j < n; ++j) {
+
+					result.add(result.get(j));
+
+				}
+
+			}
+
+			for (int i = 0; i < result.size(); ++i) {
+
+				result.set(i, result.get(i) + keyboard[d - '0'].charAt(i / n));
+
+			}
+
+		}
+
+		return result;
+
+	}
+}
+
+```
+
