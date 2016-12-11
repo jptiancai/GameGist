@@ -65,7 +65,6 @@ public class UrlTest {
 	
 
 }
-
 ```
 
 # add two numbers,链表求和
@@ -162,7 +161,6 @@ public class UrlTest {
 	}
 
 }
-
 ```
 
 # Longest Substring Without Repeating Characters, 求最大无重复字符子串
@@ -1177,4 +1175,85 @@ public class UrlTest {
 
 ```
 
-# Remove Nth Node From End of List, 代做
+# Remove Nth Node From End of List, 删除链表中倒数第n个节点
+
+```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		ListNode l1 = urlTest.new ListNode(1);
+		ListNode node = urlTest.new ListNode(2);
+		ListNode node2 = urlTest.new ListNode(3);
+		ListNode node3 = urlTest.new ListNode(4);
+		ListNode node4 = urlTest.new ListNode(5);
+		l1.next = node;
+		node.next = node2;
+		node2.next = node3;
+		node3.next = node4;
+		
+		System.out.println(l1.toString());
+		urlTest.removeNthFromEnd(l1, 2);
+		System.out.println(l1.toString());
+		
+
+	}
+	
+	/**
+	 * 九章算法 ： http://www.jiuzhang.com/solutions/remove-nth-node-from-end-of-list/
+	 * 给出链表1->2->3->4->5->null和 n = 2.
+	 * <br>
+	 * 删除倒数第二个节点之后，这个链表将变成1->2->3->5->null
+	 * @param head
+	 * @param n
+	 * @return
+	 */
+	public ListNode removeNthFromEnd(ListNode head, int n) {
+        if (n <= 0) {
+            return null;
+        }
+        
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        
+        ListNode preDelete = dummy;
+        for (int i = 0; i < n; i++) {
+            if (head == null) {
+                return null;
+            }
+            head = head.next;
+        }
+        while (head != null) {
+            head = head.next;
+            preDelete = preDelete.next;
+        }
+        preDelete.next = preDelete.next.next;
+        return dummy.next;
+    }
+	
+	
+	public class ListNode {
+		int val;
+		ListNode next;
+
+		ListNode(int x) {
+			val = x;
+			next = null;
+		}
+
+		@Override
+		public String toString() {
+			return "ListNode [val=" + val + ", next=" + next + "]";
+		}
+
+	}
+}
+
+```
+
