@@ -1257,3 +1257,67 @@ public class UrlTest {
 
 ```
 
+# Valid Parentheses， 有效的括号序列,编译器的基础
+
+```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+import java.util.Stack;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+
+		System.out.println(urlTest.isValid("{}"));
+		System.out.println(urlTest.isValid("{}]"));
+
+	}
+
+	/**
+	 * 用栈的思想解决此类问题
+	 * 算法精粹： https://soulmachine.gitbooks.io/algorithm-essentials/content/java/stack-and-queue/stack/valid-parentheses.html
+	 * @param s
+	 * @return
+	 */
+	public boolean isValid(String s) {
+
+		final String left = "([{";
+
+		final String right = ")]}";
+
+		Stack<Character> stk = new Stack<>();
+
+		for (int i = 0; i < s.length(); ++i) {
+
+			final char c = s.charAt(i);
+
+			if (left.indexOf(c) != -1) {
+
+				stk.push(c);
+
+			} else {
+
+				if (!stk.isEmpty() &&
+
+				stk.peek() == left.charAt(right.indexOf(c)))
+
+					stk.pop();
+
+				else
+
+					return false;
+
+			}
+
+		}
+
+		return stk.empty();
+
+	}
+}
+
+```
+
