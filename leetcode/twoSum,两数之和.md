@@ -111,7 +111,7 @@ public class UrlTest {
 
 		@Override
 		public String toString() {
-			return "ListNode [val=" + val + ", next=" + next + "]";
+			return val + "->" + next;
 		}
 
 	}
@@ -1249,7 +1249,7 @@ public class UrlTest {
 
 		@Override
 		public String toString() {
-			return "ListNode [val=" + val + ", next=" + next + "]";
+			return val + "->" + next;
 		}
 
 	}
@@ -1315,6 +1315,97 @@ public class UrlTest {
 		}
 
 		return stk.empty();
+
+	}
+}
+
+```
+
+# Merge Two Sorted Lists, 合并两个排序链表
+
+```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+import java.util.Stack;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+
+		ListNode l1 = urlTest.new ListNode(1);
+		ListNode node = urlTest.new ListNode(3);
+		ListNode node2 = urlTest.new ListNode(8);
+		ListNode node3 = urlTest.new ListNode(11);
+		ListNode node4 = urlTest.new ListNode(15);
+		l1.next = node;
+		node.next = node2;
+		node2.next = node3;
+		node3.next = node4;
+		
+		ListNode l2 = urlTest.new ListNode(2);
+		
+		System.out.println(l1.toString());
+		System.out.println(l2.toString());
+		System.out.println(urlTest.mergeTwoLists(l1, l2));
+
+	}
+
+	/**
+	 * 直接挪动指针，算法精粹： https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/merge-sort/merge-two-sorted-lists.html
+	 * <br>
+	 * 给出 1->3->8->11->15->null，2->null， 返回 1->2->3->8->11->15->null
+	 * @param l1
+	 * @param l2
+	 * @return
+	 */
+	public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+
+		if (l1 == null)
+			return l2;
+
+		if (l2 == null)
+			return l1;
+
+		ListNode dummy = new ListNode(-1);
+
+		ListNode p = dummy;
+
+		for (; l1 != null && l2 != null; p = p.next) {
+
+			if (l1.val > l2.val) {
+				p.next = l2;
+				l2 = l2.next;
+			}
+
+			else {
+				p.next = l1;
+				l1 = l1.next;
+			}
+
+		}
+
+		p.next = l1 != null ? l1 : l2;
+
+		return dummy.next;
+
+	}
+
+	public class ListNode {
+		int val;
+		ListNode next;
+
+		ListNode(int x) {
+			val = x;
+			next = null;
+		}
+
+		@Override
+		public String toString() {
+			return val + "->" + next;
+		}
 
 	}
 }
