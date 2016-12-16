@@ -1412,4 +1412,57 @@ public class UrlTest {
 
 ```
 
-# Generate Parentheses, 代做
+# Generate Parentheses, 生成括号
+
+```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+
+		System.out.println(urlTest.generateParenthesis(3));
+		
+
+	}
+
+	/**
+	 * 算法精粹： https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dfs/generate-parentheses.html
+	 * 递归算法求出
+	 * <br>
+	 * 给定 n = 3, 可生成的组合如下:"((()))", "(()())", "(())()", "()(())", "()()()"
+	 * @param n
+	 * @return
+	 */
+	public List<String> generateParenthesis(int n) {
+
+		if (n == 0)
+			return new ArrayList<>(Arrays.asList(""));
+
+		if (n == 1)
+			return new ArrayList<>(Arrays.asList("()"));
+
+		List<String> result = new ArrayList<>();
+
+		for (int i = 0; i < n; ++i)
+
+			for (String inner : generateParenthesis(i))
+
+				for (String outer : generateParenthesis(n - 1 - i))
+
+					result.add("(" + inner + ")" + outer);
+
+		return result;
+
+	}
+}
+
+```
+
