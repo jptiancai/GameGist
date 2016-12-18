@@ -1409,7 +1409,6 @@ public class UrlTest {
 
 	}
 }
-
 ```
 
 # Generate Parentheses, 生成括号
@@ -1466,9 +1465,107 @@ public class UrlTest {
 
 ```
 
-# Merge k Sorted Lists， 合并k个排序链表，代做 s
+# Merge k Sorted Lists， 合并k个排序链表(栈溢出，待解决)
 
 ```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+
+		ListNode l1 = urlTest.new ListNode(2);
+		ListNode node1 = urlTest.new ListNode(4);
+		l1.next = node1;
+		
+		ListNode l3 = urlTest.new ListNode(-1);
+		
+		List<ListNode> nodeLst = new ArrayList<ListNode>();
+		nodeLst.add(l1);
+		nodeLst.add(node1);
+		
+		nodeLst.add(null);
+		
+		nodeLst.add(l3);
+		System.out.println(l1.toString());
+		System.out.println(l3.toString());
+		System.out.println(urlTest.mergeKLists(nodeLst).toString());
+		
+
+	}
+	
+	
+	/**
+	 * 九章算法 ：http://www.jiuzhang.com/solutions/merge-k-sorted-lists/
+	 * <br>
+	 * 给出3个排序链表[2->4->null,null,-1->null]，返回 -1->2->4->null
+	 * @param lists
+	 * @return
+	 */
+    public ListNode mergeKLists(List<ListNode> lists) {
+        if (lists.size() == 0) {
+            return null;
+        }
+        return mergeHelper(lists, 0, lists.size() - 1);
+    }
+    
+    private ListNode mergeHelper(List<ListNode> lists, int start, int end) {
+        if (start == end) {
+            return lists.get(start);
+        }
+        
+        int mid = start + (end - start) / 2;
+        ListNode left = mergeHelper(lists, start, mid);
+        ListNode right = mergeHelper(lists, mid + 1, end);
+        return mergeTwoLists(left, right);
+    }
+    
+    private ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        while (list1 != null && list2 != null) {
+            if (list1.val < list2.val) {
+                tail.next = list1;
+                tail = list1;
+                list1 = list1.next;
+            } else {
+                tail.next = list2;
+                tail = list2;
+                list2 = list2.next;
+            }
+        }
+        if (list1 != null) {
+            tail.next = list1;
+        } else {
+            tail.next = list2;
+        }
+        
+        return dummy.next;
+    }
+	
+
+	public class ListNode {
+		int val;
+		ListNode next;
+
+		ListNode(int x) {
+			val = x;
+			next = null;
+		}
+
+		@Override
+		public String toString() {
+			return val + "->" + next;
+		}
+
+	}
+}
 
 ```
 
