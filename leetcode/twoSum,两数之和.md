@@ -1569,3 +1569,78 @@ public class UrlTest {
 
 ```
 
+# Swap Nodes in Pairs， 两两交换链表中的节点
+
+```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+
+		ListNode l1 = urlTest.new ListNode(1);
+		ListNode node1 = urlTest.new ListNode(2);
+		ListNode node2 = urlTest.new ListNode(3);
+		ListNode node3 = urlTest.new ListNode(4);
+		l1.next = node1;
+		node1.next = node2;
+		node2.next = node3;
+		
+		System.out.println(l1.toString());
+		System.out.println(urlTest.swapPairs(l1).toString());
+		
+
+	}
+	
+	/**
+	 * 九章算法 ： http://www.jiuzhang.com/solutions/swap-nodes-in-pairs/
+	 * @param head
+	 * @return
+	 */
+	public ListNode swapPairs(ListNode head) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        
+        head = dummy;
+        //0-》1-》2-》3-》4
+        while (head.next != null && head.next.next != null) {
+            ListNode n1 = head.next, n2 = head.next.next;
+            // head->n1->n2->...
+            // => head->n2->n1->...
+            //n1和n2互换
+            head.next = n2;
+            n1.next = n2.next;
+            n2.next = n1;
+            
+            // move to next pair
+            //移动head指针
+            head = n1;
+        }
+        
+        return dummy.next;
+    }
+	
+
+	public class ListNode {
+		int val;
+		ListNode next;
+
+		ListNode(int x) {
+			val = x;
+			next = null;
+		}
+
+		@Override
+		public String toString() {
+			return val + "->" + next;
+		}
+
+	}
+}
+
+```
+
