@@ -1644,3 +1644,99 @@ public class UrlTest {
 
 ```
 
+# Reverse Nodes in k-Group， K组翻转链表
+
+```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+
+		ListNode l1 = urlTest.new ListNode(1);
+		ListNode node1 = urlTest.new ListNode(2);
+		ListNode node2 = urlTest.new ListNode(3);
+		ListNode node3 = urlTest.new ListNode(4);
+		l1.next = node1;
+		node1.next = node2;
+		node2.next = node3;
+
+		System.out.println(l1.toString());
+		System.out.println(urlTest.reverseKGroup(l1, 3).toString());
+
+	}
+
+	/**
+	 * 九章算法 ： http://www.jiuzhang.com/solutions/reverse-nodes-in-k-group/
+	 * @param head
+	 * @param k
+	 * @return
+	 */
+	public ListNode reverseKGroup(ListNode head, int k) {
+		if (head == null || k <= 1) {
+			return head;
+		}
+
+		//0-》1-》2-》3-》4
+		ListNode dummy = new ListNode(0);
+		dummy.next = head;
+
+		head = dummy;
+		while (head.next != null) {
+			head = reverseNextK(head, k);
+		}
+
+		return dummy.next;
+	}
+
+	// reverse head->n1->..->nk->next..
+	// to head->nk->..->n1->next..
+	// return n1
+	private ListNode reverseNextK(ListNode head, int k) {
+		// check there is enough nodes to reverse
+		ListNode next = head; // next is not null
+		for (int i = 0; i < k; i++) {
+			if (next.next == null) {
+				return next;
+			}
+			next = next.next;
+		}
+
+		// reverse
+		ListNode n1 = head.next;
+		ListNode prev = head, curt = n1;
+		for (int i = 0; i < k; i++) {
+			ListNode temp = curt.next;
+			curt.next = prev;
+			prev = curt;
+			curt = temp;
+		}
+
+		n1.next = curt;
+		head.next = prev;
+		return n1;
+	}
+
+	public class ListNode {
+		int val;
+		ListNode next;
+
+		ListNode(int x) {
+			val = x;
+			next = null;
+		}
+
+		@Override
+		public String toString() {
+			return val + "->" + next;
+		}
+
+	}
+}
+
+```
+
