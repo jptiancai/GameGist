@@ -1740,3 +1740,50 @@ public class UrlTest {
 
 ```
 
+# Remove Duplicates from Sorted Array， 删除排序数组中的重复数字
+
+```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+
+		int[] nums={1,1,2};
+		System.out.println(urlTest.removeDuplicates(nums));
+
+	}
+
+	/**
+	 * 算法精粹：https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/remove-duplicates-from-sorted-array.html
+	 * <br>
+	 * 给出数组A =[1,1,2]，你的函数应该返回长度2，此时A=[1,2]。
+	 * @param nums
+	 * @return
+	 */
+	public int removeDuplicates(int[] nums) {
+
+		if (nums.length == 0)
+			return 0;
+
+		int index = 1;
+
+		for (int i = 1; i < nums.length; i++) {
+			//元素不重复
+			if (nums[i] != nums[index - 1])
+
+				nums[index++] = nums[i];
+
+		}
+
+		return index;
+
+	}
+}
+
+```
+
