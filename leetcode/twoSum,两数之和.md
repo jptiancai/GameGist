@@ -1787,4 +1787,50 @@ public class UrlTest {
 
 ```
 
-# Remove Duplicates from Sorted Array II, 代做
+# Remove Duplicates from Sorted Array II
+
+```
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+
+		int[] nums = { 1, 1, 1, 2, 2, 3 };
+		System.out.println(urlTest.removeDuplicates(nums));
+
+	}
+
+	/**
+	 * https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/remove-duplicates-from-sorted-array-ii.html
+	 * <br>
+	 * 最大重复次数为2的数组
+	 * @param nums
+	 * @return
+	 */
+	public int removeDuplicates(int[] nums) {
+
+		if (nums.length <= 2)
+			return nums.length;
+
+		int index = 2;
+
+		for (int i = 2; i < nums.length; i++) {
+
+			if (nums[i] != nums[index - 2])
+
+				nums[index++] = nums[i];
+
+		}
+
+		return index;
+
+	}
+}
+
+```
+
