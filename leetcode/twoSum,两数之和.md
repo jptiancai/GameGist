@@ -1834,4 +1834,48 @@ public class UrlTest {
 
 ```
 
-# Remove Element， 删除元素，代做
+# Remove Element， 删除元素
+
+```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+
+		int[] A = { 1, 1, 1, 2, 2, 3 };
+		System.out.println(urlTest.removeElement(A, 1));
+
+	}
+
+	/**
+	 * 算法精粹 ： https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/remove-element.html
+	 * @param nums
+	 * @param target
+	 * @return
+	 */
+	public int removeElement(int[] nums, int target) {
+
+		int index = 0;
+
+		for (int i = 0; i < nums.length; ++i) {
+
+			if (nums[i] != target) {
+
+				nums[index++] = nums[i];
+
+			}
+
+		}
+
+		return index;
+
+	}
+}
+
+```
+
