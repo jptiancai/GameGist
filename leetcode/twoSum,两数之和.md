@@ -1879,3 +1879,5 @@ public class UrlTest {
 
 ```
 
+# Implement strStr， 字符串查找，代做
+
