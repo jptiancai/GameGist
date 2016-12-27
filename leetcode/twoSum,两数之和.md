@@ -1879,5 +1879,12 @@ public class UrlTest {
 
 ```
 
-# Implement strStr， 字符串查找，代做
+# Implement strStr， 字符串查找
+
+
+
+更高效的的算法有KMP算法、Boyer- Mooer算法和Rabin-Karp算法
+
+- [为什么java String.contains 没有使用类似KMP字符串匹配算法进行优化？](https://www.zhihu.com/question/27852656)
+- [KMP字符串匹配算法和JDK](http://mikecoder.cn/?post=61)
 
