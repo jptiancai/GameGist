@@ -1883,8 +1883,16 @@ public class UrlTest {
 
 
 
-更高效的的算法有KMP算法、Boyer- Mooer算法和Rabin-Karp算法
+更高效的的算法有KMP算法
+
+- [字符串匹配的KMP算法](http://www.ruanyifeng.com/blog/2013/05/Knuth–Morris–Pratt_algorithm.html)
+
 
 - [为什么java String.contains 没有使用类似KMP字符串匹配算法进行优化？](https://www.zhihu.com/question/27852656)
 - [KMP字符串匹配算法和JDK](http://mikecoder.cn/?post=61)
 
+Boyer- Mooer算法
+
+- [字符串匹配的Boyer-Moore算法](http://www.ruanyifeng.com/blog/2013/05/boyer-moore_string_search_algorithm.html)
+
+Rabin-Karp算法
