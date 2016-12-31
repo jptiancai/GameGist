@@ -1896,4 +1896,6 @@ Boyer- Mooer算法
 - [字符串匹配的Boyer-Moore算法](http://www.ruanyifeng.com/blog/2013/05/boyer-moore_string_search_algorithm.html)
   - 阮一峰推荐的参考文献[Computer Algorithms: Boyer-Moore String Searching](http://www.stoimen.com/blog/2012/04/17/computer-algorithms-boyer-moore-string-search-and-matching/),看完后想说英语真好
 
-Rabin-Karp算法
+Rabin-Karp算法 
+
+- [图说Rabin-Karp字符串查找算法](http://www.ituring.com.cn/article/1759),原文竟然和上面推荐的是一样的
