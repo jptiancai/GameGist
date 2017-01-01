@@ -1899,3 +1899,53 @@ Boyer- Mooer算法
 Rabin-Karp算法 
 
 - [图说Rabin-Karp字符串查找算法](http://www.ituring.com.cn/article/1759),原文竟然和上面推荐的是一样的
+
+
+
+```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		System.out.println(urlTest.strStr("abcdabcdefg", "bcd"));
+
+	}
+
+	/**
+	 * 九章算法 ： http://www.jiuzhang.com/solutions/implement-strstr/
+	 * <br>
+	 * 如果 source = "source" 和 target = "target"，返回 -1。
+	 * <br>
+	 * 如果 source = "abcdabcdefg" 和 target = "bcd"，返回 1
+	 * @param source
+	 * @param target
+	 * @return
+	 */
+	public int strStr(String source, String target) {
+		if (source == null || target == null) {
+			return -1;
+		}
+
+		for (int i = 0; i < source.length() - target.length() + 1; i++) {
+			int j = 0;
+			for (j = 0; j < target.length(); j++) {
+				if (source.charAt(i + j) != target.charAt(j)) {
+					break;
+				}
+			}
+			// finished loop, target found
+			if (j == target.length()) {
+				return i;
+			}
+		}
+		return -1;
+	}
+}
+
+```
+
