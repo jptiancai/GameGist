@@ -1952,6 +1952,58 @@ public class UrlTest {
 # Divide Two Integers, 两个整数相除
 
 ```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		System.out.println(urlTest.divide(100, 9));
+
+	}
+
+	/**
+	 * 九章算法： http://www.jiuzhang.com/solutions/divide-two-integers/
+	 * <br>
+	 * 将两个整数相除，要求不使用乘法、除法和 mod 运算符。如果溢出，返回 2147483647 。
+	 * <br>
+	 * 还有加、减和位运算。 最简单的方法，是不断减去被除数。在这个基础上，可以做一点优化，每次把被除 数翻倍，从而加速。
+	 * @param dividend
+	 * @param divisor
+	 * @return
+	 */
+	public int divide(int dividend, int divisor) {
+		if (divisor == 0) {
+			return dividend >= 0 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+		}
+
+		if (dividend == 0) {
+			return 0;
+		}
+
+		if (dividend == Integer.MIN_VALUE && divisor == -1) {
+			return Integer.MAX_VALUE;
+		}
+
+		boolean isNegative = (dividend < 0 && divisor > 0) || (dividend > 0 && divisor < 0);
+
+		long a = Math.abs((long) dividend);
+		long b = Math.abs((long) divisor);
+		int result = 0;
+		while (a >= b) {
+			int shift = 0;
+			while (a >= (b << shift)) {
+				shift++;
+			}
+			a -= b << (shift - 1);
+			result += 1 << (shift - 1);
+		}
+		return isNegative ? -result : result;
+	}
+}
 
 ```
 
