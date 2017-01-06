@@ -2010,6 +2010,66 @@ public class UrlTest {
 # Substring with Concatenation of All Words,找到子串的下标
 
 ```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		String[] str1 = {"foo", "bar"};
+		String[] str2 = {"bar", "lov"};
+		System.out.println(urlTest.findSubstring("barfoothefoobarman", str1));
+		System.out.println(urlTest.findSubstring("barlovbarloveman", str2));
+
+	}
+
+	/**
+	 * 九章算法 ： http://www.jiuzhang.com/solutions/substring-with-concatenation-of-all-words/
+	 * <br>
+	 * 给一个字符串 S 和一个单词列表，单词长度都一样，找出所有 S 的子串，子串由所有单词组成，返回子串的起始位置,顺序无所谓
+	 * @param S
+	 * @param L
+	 * @return
+	 */
+	public ArrayList<Integer> findSubstring(String S, String[] L) {
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		HashMap<String, Integer> toFind = new HashMap<String, Integer>();
+		HashMap<String, Integer> found = new HashMap<String, Integer>();
+		int m = L.length, n = L[0].length();
+		for (int i = 0; i < m; i++) {
+			if (!toFind.containsKey(L[i])) {
+				toFind.put(L[i], 1);
+			} else {
+				toFind.put(L[i], toFind.get(L[i]) + 1);
+			}
+		}
+		for (int i = 0; i <= S.length() - n * m; i++) {
+			found.clear();
+			int j;
+			for (j = 0; j < m; j++) {
+				int k = i + j * n;
+				String stub = S.substring(k, k + n);
+				if (!toFind.containsKey(stub))
+					break;
+				if (!found.containsKey(stub)) {
+					found.put(stub, 1);
+				} else {
+					found.put(stub, found.get(stub) + 1);
+				}
+				if (found.get(stub) > toFind.get(stub))
+					break;
+			}
+			if (j == m)
+				result.add(i);
+		}
+		return result;
+	}
+}
 
 ```
 
