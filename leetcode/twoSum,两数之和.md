@@ -2073,3 +2073,9 @@ public class UrlTest {
 
 ```
 
+# Next Permutation， 下一个排列
+
+```java
+
+```
+
