@@ -2075,6 +2075,10 @@ public class UrlTest {
 
 # Next Permutation， 下一个排列
 
+
+
+- [全排列生成算法：next_permutation](http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html)
+
 ```java
 
 ```
