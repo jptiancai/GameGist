@@ -2077,7 +2077,7 @@ public class UrlTest {
 
 
 
-- [全排列生成算法：next_permutation](http://www.cnblogs.com/devymex/archive/2010/08/17/1801122.html)
+- [next_permutation原理剖析](http://blog.csdn.net/qq575787460/article/details/41215475) ： 这篇文章终于把这个问题讲明白了
 
 ```java
 
