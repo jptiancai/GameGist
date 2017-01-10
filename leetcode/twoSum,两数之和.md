@@ -2080,6 +2080,63 @@ public class UrlTest {
 - [next_permutation原理剖析](http://blog.csdn.net/qq575787460/article/details/41215475) ： 这篇文章终于把这个问题讲明白了
 
 ```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		int[] num = {1, 3, 2, 3};
+		urlTest.nextPermutation(num);
+		for (int i = 0; i < num.length; i++) {
+			System.out.print(num[i] + ", ");
+		}
+
+	}
+
+	/**
+	 * 九章算法 ： http://www.jiuzhang.com/solutions/next-permutation/
+	 * @param num
+	 */
+	public void nextPermutation(int[] num) {
+        if (num == null) {
+            return;
+        }
+        
+        int len = num.length;
+        for (int i = len - 2; i >= 0; i--) {
+            if (num[i + 1] > num[i]) {
+                int j;
+                for (j = len - 1; j > i - 1; j--) {
+                    if (num[j] > num[i]) {
+                        break;
+                    }
+                }
+
+                swap(num, i, j);
+                reverse(num, i + 1, len-1);
+                return;
+            }
+        }
+
+        reverse(num, 0, len-1);
+    }
+
+    void swap(int[] num, int i, int j) {
+        int tmp = num[i];
+        num[i] = num[j];
+        num[j] = tmp;
+    }
+
+    void reverse(int[] num, int beg, int end) {
+        for (int i = beg, j = end; i < j; i ++, j --) {
+            swap(num, i, j);
+        }
+    }
+}
 
 ```
 
