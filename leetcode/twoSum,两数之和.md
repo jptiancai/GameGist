@@ -2140,3 +2140,9 @@ public class UrlTest {
 
 ```
 
+# Longest Valid Parentheses，最长有效括号对，和生成括号的算法可以对比着看
+
+```java
+
+```
+
