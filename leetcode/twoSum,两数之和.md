@@ -2143,6 +2143,77 @@ public class UrlTest {
 # Longest Valid Parentheses，最长有效括号对，和生成括号的算法可以对比着看
 
 ```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+import java.util.Stack;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		System.out.println(urlTest.longestValidParentheses("()()"));
+
+	}
+
+	/**
+	 * 使用栈
+	 * <br>
+	 * 算法精粹： https://soulmachine.gitbooks.io/algorithm-essentials/content/java/stack-and-queue/stack/longest-valid-parentheses.html
+	 * @param s
+	 * @return
+	 */
+	public int longestValidParentheses(String s) {
+
+		// the position of the last ')'
+
+		int maxLen = 0, last = -1;
+
+		// keep track of the positions of non-matching '('s
+
+		Stack<Integer> lefts = new Stack<>();
+
+		for (int i = 0; i < s.length(); ++i) {
+
+			if (s.charAt(i) == '(') {
+
+				lefts.push(i);
+
+			} else {
+
+				if (lefts.empty()) {
+
+					// no matching left
+
+					last = i;
+
+				} else {
+
+					// find a matching pair
+
+					lefts.pop();
+
+					if (lefts.empty()) {
+
+						maxLen = Math.max(maxLen, i - last);
+
+					} else {
+
+						maxLen = Math.max(maxLen, i - lefts.peek());
+
+					}
+
+				}
+
+			}
+
+		}
+
+		return maxLen;
+
+	}
+}
 
 ```
 
