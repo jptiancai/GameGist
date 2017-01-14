@@ -2220,6 +2220,70 @@ public class UrlTest {
 # Search in Rotated Sorted Array， 搜索旋转排序数组
 
 ```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		int[] nums = {0,1,2,3,4,5,6,7};
+		System.out.println(urlTest.search(nums, 4));
+
+	}
+
+	/**
+	 * 算法精粹 : https://soulmachine.gitbooks.io/algorithm-essentials/content/java/search/search-in-rotated-sorted-array.html
+	 * <br>
+	 * 二分查找
+	 * @param nums
+	 * @param target
+	 * @return
+	 */
+	public int search(int[] nums, int target) {
+
+		int first = 0, last = nums.length;
+
+		while (first != last) {
+
+			final int mid = first
+
+					+ (last - first) / 2;
+
+			if (nums[mid] == target)
+
+				return mid;
+
+			if (nums[first] <= nums[mid]) {
+
+				if (nums[first] <= target && target < nums[mid])
+
+					last = mid;
+
+				else
+
+					first = mid + 1;
+
+			} else {
+
+				if (nums[mid] < target && target <= nums[last - 1])
+
+					first = mid + 1;
+
+				else
+
+					last = mid;
+
+			}
+
+		}
+
+		return -1;
+
+	}
+}
 
 ```
 
