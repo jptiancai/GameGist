@@ -2287,3 +2287,9 @@ public class UrlTest {
 
 ```
 
+# Search for a Range， 搜索区间
+
+```java
+
+```
+
