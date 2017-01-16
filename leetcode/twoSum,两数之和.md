@@ -2290,6 +2290,90 @@ public class UrlTest {
 # Search for a Range， 搜索区间
 
 ```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		int[] nums = { 5, 7, 7, 8, 8, 10 };
+		int[] searchRange = urlTest.searchRange(nums, 8);
+		for (int i = 0; i < searchRange.length; i++) {
+			System.out.println(searchRange[i]);
+		}
+
+	}
+
+	/**
+	 * 给定一个包含 n 个整数的排序数组，找出给定目标值 target 的起始和结束位置。
+	 * <br>
+	 * 给出[5, 7, 7, 8, 8, 10]和目标值target=8,返回[3, 4]
+	 * <br>
+	 * 算法精粹 ： https://soulmachine.gitbooks.io/algorithm-essentials/content/java/search/search-for-a-range.html
+	 * <br>
+	 * @param nums
+	 * @param target
+	 * @return
+	 */
+	public int[] searchRange(int[] nums, int target) {
+
+		int lower = lower_bound(nums, 0, nums.length, target);
+
+		int upper = upper_bound(nums, 0, nums.length, target);
+
+		if (lower == nums.length || nums[lower] != target)
+
+			return new int[] { -1, -1 };
+
+		else
+
+			return new int[] { lower, upper - 1 };
+
+	}
+
+	int lower_bound(int[] A, int first, int last, int target) {
+
+		while (first != last) {
+
+			int mid = first + (last - first) / 2;
+
+			if (target > A[mid])
+				first = ++mid;
+
+			else
+
+				last = mid;
+
+		}
+
+		return first;
+
+	}
+
+	int upper_bound(int[] A, int first, int last, int target) {
+
+		while (first != last) {
+
+			int mid = first + (last - first) / 2;
+
+			if (target >= A[mid])
+				first = ++mid;
+
+			// 与 lower_bound 仅此不同
+
+			else
+
+				last = mid;
+
+		}
+
+		return first;
+
+	}
+}
 
 ```
 
