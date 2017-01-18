@@ -2380,6 +2380,59 @@ public class UrlTest {
 # Search Insert Position， 搜索插入位置
 
 ```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		int[] nums = { 1, 3, 5, 6 };
+		int searchRange = urlTest.searchInsert(nums, 5);
+		System.out.println(searchRange);
+	}
+
+	/**
+	 * [1,3,5,6]，5 → 2
+	 * <br>
+	 * [1,3,5,6]，2 → 1
+	 * <br>
+	 * [1,3,5,6]， 7 → 4
+	 * <br>
+	 * [1,3,5,6]，0 → 0
+	 * <br>
+	 * 算法精粹： https://soulmachine.gitbooks.io/algorithm-essentials/content/java/search/search-insert-position.html
+	 * @param nums
+	 * @param target
+	 * @return
+	 */
+	public int searchInsert(int[] nums, int target) {
+
+		return lower_bound(nums, 0, nums.length, target);
+
+	}
+
+	int lower_bound(int[] A, int first, int last, int target) {
+
+		while (first != last) {
+
+			int mid = first + (last - first) / 2;
+
+			if (target > A[mid])
+				first = ++mid;
+
+			else
+
+				last = mid;
+
+		}
+
+		return first;
+
+	}
+}
 
 ```
 
