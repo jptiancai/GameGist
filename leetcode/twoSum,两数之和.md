@@ -2437,3 +2437,97 @@ public class UrlTest {
 ```
 
 # Valid Sudoku， 判断数独是否合法
+
+```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+import java.util.Arrays;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		char[][] nums = { {'5', '3', '.', '.', '7', '.', '.', '.', '.'},
+						  {'6', '.', '.', '1', '9', '5', '.', '.', '.'}, 
+						  {'.', '9', '8', '.', '.', '.', '.', '6', '.'},
+						  {'8', '.', '.', '.', '6', '.', '.', '.', '3'},
+						  {'4', '.', '.', '8', '.', '3', '.', '.', '1'},
+						  {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
+						  {'.', '6', '.', '.', '.', '.', '2', '8', '.'},
+						  {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
+						  {'.', '.', '.', '.', '8', '.', '.', '7', '9'},
+						};
+		System.out.println(urlTest.isValidSudoku(nums));
+	}
+
+	
+	/**
+	 * 请判定一个数独是否有效。
+	 * <br>
+	 * 该数独可能只填充了部分数字，其中缺少的数字用 . 表示。
+	 * <br>
+	 * 算法精髓： https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/valid-sudoku.html
+	 * @param board
+	 * @return
+	 */
+	public boolean isValidSudoku(char[][] board) {
+
+		boolean[] used = new boolean[9];
+
+		for (int i = 0; i < 9; ++i) {
+
+			Arrays.fill(used, false);
+
+			for (int j = 0; j < 9; ++j) // 检查行
+
+				if (!check(board[i][j], used))
+
+					return false;
+
+			Arrays.fill(used, false);
+
+			for (int j = 0; j < 9; ++j) // 检查列
+
+				if (!check(board[j][i], used))
+
+					return false;
+
+		}
+
+		for (int r = 0; r < 3; ++r) // 检查 9 个子格子
+
+			for (int c = 0; c < 3; ++c) {
+
+				Arrays.fill(used, false);
+
+				for (int i = r * 3; i < r * 3 + 3; ++i)
+
+					for (int j = c * 3; j < c * 3 + 3; ++j)
+
+						if (!check(board[i][j], used))
+
+							return false;
+
+			}
+
+		return true;
+
+	}
+
+	private static boolean check(char ch, boolean[] used) {
+
+		if (ch == '.')
+			return true;
+
+		if (used[ch - '1'])
+			return false;
+
+		return used[ch - '1'] = true;
+
+	}
+}
+
+```
+
