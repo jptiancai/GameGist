@@ -2534,6 +2534,107 @@ public class UrlTest {
 # Sudoku Solver， 数独解题
 
 ```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+import java.util.Arrays;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		char[][] nums = { { '5', '3', '.', '.', '7', '.', '.', '.', '.' },
+						  { '6', '.', '.', '1', '9', '5', '.', '.', '.' }, 
+						  { '.', '9', '8', '.', '.', '.', '.', '6', '.' },
+						  { '8', '.', '.', '.', '6', '.', '.', '.', '3' },
+						  { '4', '.', '.', '8', '.', '3', '.', '.', '1' },
+						  { '7', '.', '.', '.', '2', '.', '.', '.', '6' }, 
+						  { '.', '6', '.', '.', '.', '.', '2', '8', '.' },
+						  { '.', '.', '.', '4', '1', '9', '.', '.', '5' }, 
+						  { '.', '.', '.', '.', '8', '.', '.', '7', '9' }, };
+		urlTest.solveSudoku(nums);
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				if(j == 8){
+					System.out.println();
+				}else{
+					System.out.print(nums[i][j]);
+				} 
+			}
+		}
+	}
+
+	/**
+	 * 算法精粹： https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dfs/sudoku-solver.html
+	 * @param board
+	 */
+	public void solveSudoku(char[][] board) {
+
+		_solveSudoku(board);
+
+	}
+
+	private static boolean _solveSudoku(char[][] board) {
+
+		for (int i = 0; i < 9; ++i)
+
+			for (int j = 0; j < 9; ++j) {
+
+				if (board[i][j] == '.') {
+
+					for (int k = 0; k < 9; ++k) {
+
+						board[i][j] = Character.forDigit(k + 1, 10);
+
+						if (isValid(board, i, j) && _solveSudoku(board))
+
+							return true;
+
+						board[i][j] = '.';
+
+					}
+
+					return false;
+
+				}
+
+			}
+
+		return true;
+
+	}
+
+	// 检查 (x, y) 是否合法
+
+	private static boolean isValid(char[][] board, int x, int y) {
+
+		int i, j;
+
+		for (i = 0; i < 9; i++) // 检查 y 列
+
+			if (i != x && board[i][y] == board[x][y])
+
+				return false;
+
+		for (j = 0; j < 9; j++) // 检查 x 行
+
+			if (j != y && board[x][j] == board[x][y])
+
+				return false;
+
+		for (i = 3 * (x / 3); i < 3 * (x / 3 + 1); i++)
+
+			for (j = 3 * (y / 3); j < 3 * (y / 3 + 1); j++)
+
+				if ((i != x || j != y) && board[i][j] == board[x][y])
+
+					return false;
+
+		return true;
+
+	}
+}
 
 ```
 
