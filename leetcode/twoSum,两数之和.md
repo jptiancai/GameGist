@@ -2641,6 +2641,76 @@ public class UrlTest {
 # Count and Say，  报数
 
 ```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		System.out.println(urlTest.countAndSay(5));
+	}
+
+	/**
+	 * 给定 n = 5, 返回 "111221"
+	 * <br>
+	 * 算法精粹： https://soulmachine.gitbooks.io/algorithm-essentials/content/java/string/count-and-say.html
+	 * @param n
+	 * @return
+	 */
+	public String countAndSay(int n) {
+
+		String s = "1";
+
+		while (--n > 0)
+
+			s = getNext(s);
+
+		return s;
+
+	}
+
+	String getNext(final String s) {
+
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 0; i < s.length();) {
+
+			int j = notEqual(s, i);
+
+			sb.append(j - i);
+
+			sb.append(s.charAt(i));
+
+			i = j;
+
+		}
+
+		return sb.toString();
+
+	}
+
+	// find the first char that not equal to fromIndex
+
+	private static int notEqual(final String s, int fromIndex) {
+
+		final char target = s.charAt(fromIndex);
+
+		int i = fromIndex;
+
+		for (; i < s.length(); ++i) {
+
+			if (s.charAt(i) != target)
+				break;
+
+		}
+
+		return i;
+
+	}
+}
 
 ```
 
