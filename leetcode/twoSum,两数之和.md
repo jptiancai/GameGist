@@ -2717,6 +2717,74 @@ public class UrlTest {
 # Combination Sum， 数字组合
 
 ```java
+package com.imop.lj.test.battle;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		int[] nums={2,3,6,7};
+		int target = 7;
+		System.out.println(urlTest.combinationSum(nums, target));
+	}
+
+	
+	/**
+	 * 算法精粹： https://soulmachine.gitbooks.io/algorithm-essentials/content/java/dfs/combination-sum.html
+	 * <br>
+	 * 给出候选数组[2,3,6,7]和目标数字7, 返回 [[7],[2,2,3]]
+	 * <br>
+	 * @param nums
+	 * @param target
+	 * @return
+	 */
+	public List<List<Integer>> combinationSum(int[] nums, int target) {
+
+		Arrays.sort(nums);
+
+		List<List<Integer>> result = new ArrayList<>(); // 最终结果
+
+		List<Integer> path = new ArrayList<>(); // 中间结果
+
+		dfs(nums, path, result, target, 0);
+
+		return result;
+
+	}
+
+	private static void dfs(int[] nums, List<Integer> path,
+
+		List<List<Integer>> result, int gap, int start){
+
+		if (gap == 0) {
+
+		// 找到一个合法解
+
+		result.add(new ArrayList<Integer>(path));
+
+		return;
+
+		}
+
+		for (int i = start; i < nums.length; i++) { // 扩展状态
+
+		if (gap < nums[i]) return; // 剪枝
+
+		path.add(nums[i]); // 执行扩展动作
+
+		dfs(nums, path, result, gap - nums[i], i);
+
+		path.remove(path.size() - 1);// 撤销动作
+
+		}
+
+		}
+}
 ```
 
