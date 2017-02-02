@@ -2882,3 +2882,9 @@ public class UrlTest {
 
 ```
 
+# First Missing Positive， 丢失第一个整数
+
+```java
+
+```
+
