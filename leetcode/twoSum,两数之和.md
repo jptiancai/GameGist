@@ -2885,6 +2885,67 @@ public class UrlTest {
 # First Missing Positive， 丢失第一个整数
 
 ```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		int[] nums = { 1, 2, 0 };
+		System.out.println(urlTest.firstMissingPositive(nums));
+	}
+
+	/**算法精粹： https://soulmachine.gitbooks.io/algorithm-essentials/content/java/sorting/bucket-sort/first-missing-positive.html
+	 * <br>
+	 * 桶排序
+	 * <br>
+	 * 如果给出 [1,2,0], return 3, 如果给出 [3,4,-1,1], return 2
+	 * @param nums
+	 * @return
+	 */
+	public int firstMissingPositive(int[] nums) {
+
+		bucket_sort(nums);
+
+		for (int i = 0; i < nums.length; ++i)
+
+			if (nums[i] != (i + 1))
+
+				return i + 1;
+
+		return nums.length + 1;
+
+	}
+
+	private static void bucket_sort(int[] A) {
+
+		final int n = A.length;
+
+		for (int i = 0; i < n; i++) {
+
+			while (A[i] != i + 1) {
+
+				if (A[i] < 1 || A[i] > n || A[i] == A[A[i] - 1])
+
+					break;
+
+				// swap
+
+				int tmp = A[i];
+
+				A[i] = A[tmp - 1];
+
+				A[tmp - 1] = tmp;
+
+			}
+
+		}
+
+	}
+}
 
 ```
 
