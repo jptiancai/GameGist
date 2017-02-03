@@ -2884,6 +2884,10 @@ public class UrlTest {
 
 # First Missing Positive， 丢失第一个整数
 
+- [常见排序算法【归档】](http://bubkoo.com/2014/01/17/sort-algorithm/archives/)
+
+
+
 ```java
 package com.imop.lj.test.battle;
 
