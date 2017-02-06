@@ -2962,6 +2962,61 @@ public class UrlTest {
 如上图所示，海拔分别为 [0,1,0,2,1,0,1,3,2,1,2,1], 返回 6.
 
 ```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		int[] nums = { 0,1,0,2,1,0,1,3,2,1,2,1};
+		System.out.println(urlTest.trap(nums));
+	}
+
+	/**
+	 * 算法精粹： https://soulmachine.gitbooks.io/algorithm-essentials/content/java/linear-list/array/trapping-rain-water.html
+	 * @param A
+	 * @return
+	 */
+	public int trap(int[] A) {
+
+		final int n = A.length;
+
+		int peak_index = 0; // 最高的柱子，将数组分为两半
+
+		for (int i = 0; i < n; i++)
+
+			if (A[i] > A[peak_index])
+				peak_index = i;
+
+		int water = 0;
+
+		for (int i = 0, left_peak = 0; i < peak_index; i++) {
+
+			if (A[i] > left_peak)
+				left_peak = A[i];
+
+			else
+				water += left_peak - A[i];
+
+		}
+
+		for (int i = n - 1, right_peak = 0; i > peak_index; i--) {
+
+			if (A[i] > right_peak)
+				right_peak = A[i];
+
+			else
+				water += right_peak - A[i];
+
+		}
+
+		return water;
+
+	}
+}
 
 ```
 
