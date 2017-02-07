@@ -3020,3 +3020,9 @@ public class UrlTest {
 
 ```
 
+# Multiply Strings，大数相乘 
+
+另一种解法： http://www.cnblogs.com/TenosDoIt/p/3735309.html
+
+
+
