@@ -3024,5 +3024,133 @@ public class UrlTest {
 
 另一种解法： http://www.cnblogs.com/TenosDoIt/p/3735309.html
 
+```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		System.out.println(urlTest.multiply("289", "785"));
+		System.out.println(289 * 785);
+	}
+
+	/**
+	 * 算法精粹：https://soulmachine.gitbooks.io/algorithm-essentials/content/java/simulation/multiply-strings.html
+	 * <br>
+	 * 高精度乘法。
+	 * <br>常见的做法是将字符转化为一个int，一一对应，形成一个int数组。
+	 * <br>但是这样很浪费 空间，一个int32的最大值是 2^{31}-1=2147483647 ，可以与9个字符对应，由于 有乘法，减半，则至少可以与4个字符一一对应。一个int64可以与9个字符对应。
+	 * @param num1
+	 * @param num2
+	 * @return
+	 */
+	public String multiply(String num1, String num2) {
+
+		BigInt bigInt1 = new BigInt(num1);
+
+		BigInt bigInt2 = new BigInt(num2);
+
+		BigInt result = BigInt.multiply(bigInt1, bigInt2);
+
+		return result.toString();
+
+	}
+
+	// 一个字符对应一个int
+
+	static class BigInt {
+
+		private final int[] d;
+
+		public BigInt(String s) {
+
+			this.d = fromString(s);
+
+		}
+
+		public BigInt(int[] d) {
+
+			this.d = d;
+
+		}
+
+		private static int[] fromString(String s) {
+
+			int[] d = new int[s.length()];
+
+			for (int i = s.length() - 1, j = 0; i >= 0; --i)
+
+				d[j++] = Character.getNumericValue(s.charAt(i));
+
+			return d;
+
+		}
+
+		@Override
+
+		public String toString() {
+
+			final StringBuilder sb = new StringBuilder();
+
+			for (int i = d.length - 1; i >= 0; --i) {
+
+				sb.append(Character.forDigit(d[i], 10));
+
+			}
+
+			return sb.toString();
+
+		}
+
+		public static BigInt multiply(BigInt x, BigInt y) {
+
+			int[] z = new int[x.d.length + y.d.length];
+
+			for (int i = 0; i < x.d.length; ++i) {
+
+				for (int j = 0; j < y.d.length; ++j) {
+
+					z[i + j] += x.d[i] * y.d[j];
+
+					z[i + j + 1] += z[i + j] / 10;
+
+					z[i + j] %= 10;
+
+				}
+
+			}
+
+			// find the first 0 from right to left
+
+			int i = z.length - 1;
+
+			for (; i > 0 && z[i] == 0; --i)
+				/* empty */;
+
+			if (i == z.length - 1) {
+
+				return new BigInt(z);
+
+			} else { // make a copy
+
+				int[] tmp = new int[i + 1];
+
+				System.arraycopy(z, 0, tmp, 0, i + 1);
+
+				return new BigInt(tmp);
+
+			}
+
+		}
+
+	}
+}
+
+```
+
 
 
