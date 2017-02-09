@@ -3024,6 +3024,8 @@ public class UrlTest {
 
 另一种解法： http://www.cnblogs.com/TenosDoIt/p/3735309.html
 
+另外更高效的计算大整数乘法一般有：（1）karatsuba算法，复杂度为3nlog3≈3n1.585，可以参考[百度百科](https://wapbaike.baidu.com/item/karatsuba乘法?uid=E06CC90AB91510ED1E00FAB0EC7472D8&bd_page_type=1&st=1&step=2&net=0&bk_fr=bk_srch)、[面试题——大整数乘法](http://bbs.byr.cn/#!article/ACM_ICPC/68305)、[乘法算法-Karatsuba算法](http://blog.csdn.net/jiyanfeng1/article/details/8543846)。（2）基于FFT(快速傅里叶变换)的算法，复杂度为o(nlogn), 可以参考[FFT, 卷积, 多项式乘法, 大整数乘法](http://klogk.com/posts/FFT-convolution-polynomial-biginteger/)
+
 ```java
 package com.imop.lj.test.battle;
 
