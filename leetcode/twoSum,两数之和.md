@@ -3216,5 +3216,57 @@ public class UrlTest {
 # Jump Game II， 跳跃游戏 II
 
 ```
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		int[] nums = {2,3,1,1,4};
+		System.out.println(urlTest.jump(nums));
+	}
+
+	/**
+	 * 给出数组A = [2,3,1,1,4]，最少到达数组最后一个位置的跳跃次数是2(从数组下标0跳一步到数组下标1，然后跳3步到数组的最后一个位置，一共跳跃2次)
+	 * <br>
+	 * 编程精粹： https://soulmachine.gitbooks.io/algorithm-essentials/content/java/greedy/jump-game-ii.html
+	 * <br>
+	 * @param nums
+	 * @return
+	 */
+	public int jump(int[] nums) {
+
+		int result = 0;
+
+		// the maximum distance that has been reached
+
+		int last = 0;
+
+		// the maximum distance that can be reached by using "ret+1" steps
+
+		int cur = 0;
+
+		for (int i = 0; i < nums.length; ++i) {
+
+			if (i > last) {
+
+				last = cur;
+
+				++result;
+
+			}
+
+			cur = Math.max(cur, i + nums[i]);
+
+		}
+
+		return result;
+
+	}
+
+}
 
 ```
