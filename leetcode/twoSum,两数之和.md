@@ -3270,3 +3270,10 @@ public class UrlTest {
 }
 
 ```
+
+# Permutations，全排列
+
+```java
+
+```
+
