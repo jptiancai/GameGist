@@ -3274,6 +3274,90 @@ public class UrlTest {
 # Permutations，全排列
 
 ```java
+package com.imop.lj.test.battle;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class UrlTest {
+
+	public static void main(String[] args) throws IOException {
+
+		UrlTest urlTest = new UrlTest();
+		int[] nums = { 1, 2, 3};
+		System.out.println(urlTest.permute(nums));
+	}
+
+	/**
+	 * 九章算法：http://www.jiuzhang.com/solutions/permutations/
+	 * <br>
+	 * 给出一个列表[1,2,3]，其全排列为：
+	 * <pre>
+		[
+		  [1,2,3],
+		  [1,3,2],
+		  [2,1,3],
+		  [2,3,1],
+		  [3,1,2],
+		  [3,2,1]
+		]
+		</pre>
+	 * @param nums
+	 * @return
+	 */
+	public List<List<Integer>> permute(int[] nums) {
+		ArrayList<List<Integer>> permutations = new ArrayList<List<Integer>>();
+		if (nums == null) {
+
+			return permutations;
+		}
+
+		if (nums.length == 0) {
+			permutations.add(new ArrayList<Integer>());
+			return permutations;
+		}
+
+		int n = nums.length;
+		ArrayList<Integer> stack = new ArrayList<Integer>();
+
+		stack.add(-1);
+		while (stack.size() != 0) {
+			Integer last = stack.get(stack.size() - 1);
+			stack.remove(stack.size() - 1);
+
+			// increase the last number
+			int next = -1;
+			for (int i = last + 1; i < n; i++) {
+				if (!stack.contains(i)) {
+					next = i;
+					break;
+				}
+			}
+			if (next == -1) {
+				continue;
+			}
+
+			// generate the next permutation
+			stack.add(next);
+			for (int i = 0; i < n; i++) {
+				if (!stack.contains(i)) {
+					stack.add(i);
+				}
+			}
+
+			// copy to permutations set
+			ArrayList<Integer> permutation = new ArrayList<Integer>();
+			for (int i = 0; i < n; i++) {
+				permutation.add(nums[stack.get(i)]);
+			}
+			permutations.add(permutation);
+		}
+
+		return permutations;
+	}
+
+}
 
 ```
 
