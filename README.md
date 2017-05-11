@@ -1,0 +1,1 @@
+- [java 回调机制](http://blog.csdn.net/bjyfb/article/details/10462555) : 把接口的三种调用方式（同步调用，回调，异步调用）说的很清楚
